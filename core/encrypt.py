@@ -26,6 +26,11 @@ class Encrypt:
             Строка для шифрования
         shift : int
             Сдвиг шифрования
+
+        Returns
+        -------
+        result : str
+            Зашифрованная строка
         """
 
         if not (text and shift):
@@ -65,18 +70,62 @@ class Encrypt:
             Строка для шифрования
         key : str
             Ключ для шифрования
+
+        Returns
+        -------
+        result : str
+            Зашифрованная строка
         """
 
         if not (text and key):
             return text
 
-        cipher_text = ''
+        result = ''
         key = key.upper()
 
         for i, letter in enumerate(text):
             key_letter = key[i % len(key)]
             shift = EN_ALPHABET.find(key_letter) if key_letter in EN_ALPHABET else RU_ALPHABET.find(key_letter)
             shift = -shift if decrypt else shift
-            cipher_text += Encrypt.caesar(letter, shift)
+            result += Encrypt.caesar(letter, shift)
 
-        return cipher_text
+        return result
+
+    @staticmethod
+    def atbash(text:str) -> str:
+        """
+        Шифр Атбаш
+
+        Parameters
+        ----------
+        text : str
+            Строка для шифрования
+
+        Returns
+        -------
+        result : str
+            Зашифрованная строка
+        """
+
+        if not text:
+            return text
+
+        result = ''
+
+        for letter in text:
+            if letter.isalpha():
+                en = letter.upper() in EN_ALPHABET
+                len_ = EN_LEN if en else RU_LEN
+                alphabet = EN_ALPHABET if en else RU_ALPHABET
+
+                if (letter.isupper()):
+                    result += alphabet[len_ - alphabet.find(letter) - 1]
+
+                else:
+                    alphabet = alphabet.lower()
+                    result += alphabet[len_ - alphabet.find(letter) - 1]
+
+            else:
+                result += letter
+
+        return result

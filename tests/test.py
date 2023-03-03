@@ -88,6 +88,34 @@ class TestEncrypt(unittest.TestCase):
         self.assertEqual(Encrypt.vigenere('Пайтон3.6', 'key'), 'Щдбьте3.0')
         self.assertEqual(Encrypt.vigenere('Pайтон3.6', 'kлюч'), 'Zлзйшщ4.6')
 
+    def test_atbash(self):
+        """
+        Тест шифра Атбаш
+        """
+
+        self.assertEqual(Encrypt.atbash(None), None)
+        # Тест английского текста
+        self.assertEqual(Encrypt.atbash('A'), 'Z')
+        self.assertEqual(Encrypt.atbash('a'), 'z')
+        self.assertEqual(Encrypt.atbash('Python'), 'Kbgslm')
+        self.assertEqual(Encrypt.atbash('Python3.6'), 'Kbgslm3.6')
+        self.assertEqual(Encrypt.atbash('Python the best language'), 'Kbgslm gsv yvhg ozmtfztv')
+        # Тест цифр и числел
+        self.assertEqual(Encrypt.atbash('1'), '1')
+        self.assertEqual(Encrypt.atbash('19'), '19')
+        # Тест русского текста
+        self.assertEqual(Encrypt.atbash('А'), 'Я')
+        self.assertEqual(Encrypt.atbash('а'), 'я')
+        self.assertEqual(Encrypt.atbash('Пайтон'), 'Пяхмрс')
+        self.assertEqual(Encrypt.atbash('Пайтон3.6'), 'Пяхмрс3.6')
+        # Тест пустой строки, пробелов и знаков препинания
+        self.assertEqual(Encrypt.atbash(''), '')
+        self.assertEqual(Encrypt.atbash(' '), ' ')
+        self.assertEqual(Encrypt.atbash('.,!@#$%^&*()\\|/'), '.,!@#$%^&*()\\|/')
+        # Тест обоих языков в строке
+        self.assertEqual(Encrypt.atbash('AА'), 'ZЯ')
+        self.assertEqual(Encrypt.atbash('aа'), 'zя')
+
 
 class TestDecrypt(unittest.TestCase):
 
@@ -172,6 +200,34 @@ class TestDecrypt(unittest.TestCase):
         self.assertEqual(Decrypt.vigenere('Akyfzz4.7', 'ключ'), 'Python3.6')
         self.assertEqual(Decrypt.vigenere('Щдбьте3.0', 'key'), 'Пайтон3.6')
         self.assertEqual(Decrypt.vigenere('Zлзйшщ4.6', 'kлюч'), 'Pайтон3.6')
+
+    def test_atbash(self):
+        """
+        Тест шифра Атбаш
+        """
+
+        self.assertEqual(Encrypt.atbash(None), None)
+        # Тест английского текста
+        self.assertEqual(Encrypt.atbash('Z'), 'A')
+        self.assertEqual(Encrypt.atbash('z'), 'a')
+        self.assertEqual(Encrypt.atbash('Kbgslm'), 'Python')
+        self.assertEqual(Encrypt.atbash('Kbgslm3.6'), 'Python3.6')
+        self.assertEqual(Encrypt.atbash('Kbgslm gsv yvhg ozmtfztv'), 'Python the best language')
+        # Тест цифр и числел
+        self.assertEqual(Encrypt.atbash('1'), '1')
+        self.assertEqual(Encrypt.atbash('19'), '19')
+        # Тест русского текста
+        self.assertEqual(Encrypt.atbash('Я'), 'А')
+        self.assertEqual(Encrypt.atbash('я'), 'а')
+        self.assertEqual(Encrypt.atbash('Пяхмрс'), 'Пайтон')
+        self.assertEqual(Encrypt.atbash('Пяхмрс3.6'), 'Пайтон3.6')
+        # Тест пустой строки, пробелов и знаков препинания
+        self.assertEqual(Encrypt.atbash(''), '')
+        self.assertEqual(Encrypt.atbash(' '), ' ')
+        self.assertEqual(Encrypt.atbash('.,!@#$%^&*()\\|/'), '.,!@#$%^&*()\\|/')
+        # Тест обоих языков в строке
+        self.assertEqual(Encrypt.atbash('ZЯ'), 'AА')
+        self.assertEqual(Encrypt.atbash('zя'), 'aа')
 
 
 if __name__ == '__main__':
