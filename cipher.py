@@ -4,8 +4,10 @@
 Основной модуль для работы с утилитой
 """
 
+# built-in
 import argparse
 
+# internal
 from core.encrypt import Encrypt
 from core.decrypt import Decrypt
 

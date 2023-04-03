@@ -1,5 +1,13 @@
+# -*- coding: utf-8 -*-
+
+"""
+Модуль тестов
+"""
+
+# built-in
 import unittest
 
+# internal
 from core.encrypt import Encrypt
 from core.decrypt import Decrypt
 

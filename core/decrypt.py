@@ -4,6 +4,7 @@
 Модуль дешифрования
 """
 
+# internal
 from core.encrypt import Encrypt
 
 
